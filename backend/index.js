@@ -58,7 +58,7 @@ app.put("/completed", async(req, res)=>{
                 message: "You send the wrong input"
             })
         }
-        const {id} = req.body;
+        // const {id} = req.body;
         await Todo.updateOne({
             _id : req.body.id
         }, {
