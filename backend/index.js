@@ -30,7 +30,7 @@ app.post("/todo", async(req, res)=>{
         }
         await Todo.create({
             title:createPayload.title,
-            desciption:createPayload.desciption,
+            description:createPayload.description,
             completed:false
         })
         res.json({
@@ -54,7 +54,7 @@ app.put("/completed", async(req, res)=>{
             })
         }
         const {id} = req.body;
-        await Todo.update({
+        await Todo.updateOne({
             _id : req.body.id
         }, {
             completed: true
@@ -65,7 +65,5 @@ app.put("/completed", async(req, res)=>{
         res.status(500).json(error.message)
         
     }
-
-
 })
 app.listen(port, ()=>{console.log("Port is Running successfully")})
