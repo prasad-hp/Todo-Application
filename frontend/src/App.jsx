@@ -1,22 +1,24 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import CreateTodo from "../components/CreateTodo"
 import Todos from "../components/Todos"
 import axios from "axios"
 
+
 function App() {
   const [todos, setTodos] = useState([])
 
-  async function getTodos(){
-    try {
-      axios.get("http://localhost:3000/todos")
-      .then((response)=>{
-        console.log(response)
-      })
-    } catch (error) {
-      console.error(error)
+  useEffect(()=>{
+    async function getTodos(){
+      try {
+        const response = await axios.get("http://localhost:3000/todos")
+        setTodos(response.data)
+        }
+      catch (error) {
+        console.error(error)
+      }
     }
-  }
-  getTodos()
+    getTodos() 
+  }, [])
   return (
     <>
       <CreateTodo />

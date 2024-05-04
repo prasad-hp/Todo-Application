@@ -1,12 +1,17 @@
 import express, { urlencoded } from "express"
 import {createTodo, updateTodo} from "./types.js"
 import Todo from "./schemaDB.js";
+import cors from "cors"
 
 const app = express()
 const port = 3000;
 
 app.use(express.json())
-app.unsubscribe(urlencoded({extended:false}))
+app.use(urlencoded({extended:false}))
+app.use(cors({
+    origin:"http://localhost:5173"
+}))
+
 
 app.get("/todos", async(req, res)=>{
     try {
