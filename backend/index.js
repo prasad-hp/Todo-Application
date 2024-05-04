@@ -1,4 +1,4 @@
-import express from "express"
+import express, { urlencoded } from "express"
 import {createTodo, updateTodo} from "./types.js"
 import Todo from "./schemaDB.js";
 
@@ -6,6 +6,7 @@ const app = express()
 const port = 3000;
 
 app.use(express.json())
+app.unsubscribe(urlencoded({extended:false}))
 
 app.get("/todos", async(req, res)=>{
     try {
@@ -15,7 +16,6 @@ app.get("/todos", async(req, res)=>{
     } catch (error) {
     res.status(500).json(error.message)
     }
-
 })
 
 app.post("/todo", async(req, res)=>{
