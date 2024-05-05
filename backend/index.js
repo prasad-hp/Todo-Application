@@ -49,9 +49,9 @@ app.post("/todo", async(req, res)=>{
 
     
 })
-app.put("/completed", async(req, res)=>{
+app.put("/completed/:id", async(req, res)=>{
     try {
-        const updatePayload = req.body;
+        const updatePayload = req.params;
         const parsedPayload = updateTodo.safeParse(updatePayload)
         if(!parsedPayload.success){
             res.status(411).json({
@@ -59,12 +59,8 @@ app.put("/completed", async(req, res)=>{
             })
         }
         // const {id} = req.body;
-        await Todo.updateOne({
-            _id : req.body.id
-        }, {
-            completed: true
-        })
-        res.status(200).json({message: "Todo Updated"})
+        await Todo.findByIdAndUpdate(req.params.id,{completed:true})
+        res.status(200).json({message: "Todo Mark as completed"})
         
     } catch (error) {
         res.status(500).json(error.message)
